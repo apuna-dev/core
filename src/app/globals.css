@@ -1,0 +1,365 @@
+@import "tailwindcss";
+
+/* Drive `dark:` utilities off our .dark CLASS (set by the init script / toggle),
+   not prefers-color-scheme — otherwise dark: variants would follow the OS and
+   contradict a class-based toggle. Lets components fix per-mode contrast spots. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+  Apuna design tokens — LIGHT + DARK.
+
+  Components hardcode Tailwind's `slate` scale (bg-slate-950, text-slate-100, …) plus
+  the remapped `cyan`/`indigo` accents and the custom brand tokens. Tailwind v4 emits
+  every `bg-x`/`text-x` as `var(--color-x)`, so theming = overriding those CSS variables
+  per mode. Unlayered :root / .dark rules below win over Tailwind's theme layer:
+    :root  → LIGHT  (slate ramp inverted to a calm near-neutral; deepened accents)
+    .dark  → DARK   (natural slate ramp + signal-blue/lilac accents — the original look)
+  The `.dark` class is set on <html> before paint by the inline init script in layout.tsx
+  (system preference / saved choice / ?theme=), toggled via the navbar button. Dark mode is
+  unchanged from the original deep-space design.
+*/
+
+/* Declare the custom (non-default) tokens so their utilities generate. Real values are
+   set per-mode in :root / .dark below; these are dark-value seeds / safe fallbacks. */
+@theme {
+  --color-background: #020617;
+  --color-foreground: #e2e8f0;
+  --color-surface: #0f172a;
+  --color-surface-foreground: #f1f5f9;
+  --color-muted: #1e293b;
+  --color-muted-foreground: #94a3b8;
+  --color-border: #1e293b;
+  --color-primary: #22D3EE;
+  --color-primary-foreground: #021014;
+  --color-accent: #A78BFA;
+
+  --color-brand: #22D3EE;
+  --color-navy: #0d2b4e;
+  --color-viridian: #34E5A1;
+  --color-gold: #e8a82b;
+  --color-lilac: #A78BFA;
+  --color-coral: #d94545;
+
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+}
+
+/* LIGHT (default) — calm near-neutral; slate ramp inverted (low = dark text, high = light surface). */
+:root {
+  color-scheme: light;
+
+  --color-background: #f6f7f9;
+  --color-foreground: #1a1e25;
+  --color-surface: #ffffff;
+  --color-surface-foreground: #0a0c10;
+  --color-muted: #eceef1;
+  --color-muted-foreground: #565c66;
+  --color-border: #e2e5ea;
+  --color-primary: #0e7490;
+  --color-primary-foreground: #ffffff;
+  --color-accent: #7c3aed;
+
+  --color-brand: #0e7490;
+  --color-navy: #14385e;
+  --color-viridian: #0d9062;
+  --color-gold: #b9831b;
+  --color-lilac: #7c3aed;
+  --color-coral: #c43b3b;
+
+  --color-slate-50: #0a0c10;
+  --color-slate-100: #1a1e25;
+  --color-slate-200: #2b2f37;
+  --color-slate-300: #404650;
+  --color-slate-400: #565c66;
+  --color-slate-500: #6b7180;
+  --color-slate-600: #8b909a;
+  --color-slate-700: #c9cdd4;
+  --color-slate-800: #e6e8ec;
+  --color-slate-900: #ffffff;
+  --color-slate-950: #f6f7f9;
+
+  /* Accents-as-TEXT must clear AA on the near-white ground. Keep the hue, INVERT/deepen the
+     lightness — a literal RGB-inverse would flip the hue (cyan→red, violet→olive), which is wrong.
+     200 stays light for decorative tints; 300/400 are pulled down to AA-as-text. */
+  --color-cyan-200: #cffafe;
+  --color-cyan-300: #0e7490;
+  --color-cyan-400: #0a4f60;
+  --color-cyan-500: #0e7490;
+  --color-cyan-600: #0a5f78;
+
+  --color-indigo-300: #6d28d9;
+  --color-indigo-400: #6d28d9;
+  --color-indigo-500: #7c3aed;
+  --color-indigo-600: #6d28d9;
+
+  /* `violet` and `emerald` are separate Tailwind scales used for lilac/green accent TEXT
+     (eyebrows, AI chips). They were never theme-overridden, so they stayed light-on-white.
+     Deepen for AA in light mode (.dark restores the vivid values below). */
+  --color-violet-300: #6d28d9;
+  --color-violet-400: #5b21b6;
+  --color-violet-500: #6d28d9;
+  --color-emerald-300: #047857;
+  --color-emerald-400: #047857;
+
+  --goethe-0: #1F4E8C;
+  --goethe-1: #1F7A3D;
+  --goethe-2: #E0A400;
+  --goethe-3: #D2691E;
+  --goethe-4: #B01B3A;
+  --goethe-5: #5B3A8C;
+  --color-redhat: #EE0000;
+
+  --grid-line: rgba(40, 45, 55, 0.05);
+  --sel-bg: rgba(14, 116, 144, 0.14);
+  --sel-fg: #0a5f78;
+}
+
+/* DARK — aurora-borealis accent pass (2026-06-16). Violet-navy ground retained; petrol-blue/rose
+   replaced with aurora teal (#22D3EE brand) + violet (#A78BFA accent/lilac) + emerald (#34E5A1
+   viridian). Headline gradient: emerald→teal→violet. Gold (#e8aa2e) unchanged — logo north-star. */
+.dark {
+  color-scheme: dark;
+
+  --color-background: #0e0c1a;
+  --color-foreground: #e4e1ec;
+  --color-surface: #141120;
+  --color-surface-foreground: #f0edf6;
+  --color-muted: #1e1a2e;
+  --color-muted-foreground: #9d96b0;
+  --color-border: #1e1a2e;
+  --color-primary: #22D3EE;
+  --color-primary-foreground: #021014;
+  --color-accent: #A78BFA;
+
+  --color-brand: #22D3EE;
+  --color-navy: #0d2540;
+  --color-viridian: #34E5A1;
+  --color-gold: #e8aa2e;
+  --color-lilac: #A78BFA;
+  --color-coral: #d64848;
+
+  --color-slate-50: #f8f6fc;
+  --color-slate-100: #f0edf6;
+  --color-slate-200: #e4e1ec;
+  --color-slate-300: #cbc6d8;
+  --color-slate-400: #9d96b0;
+  --color-slate-500: #6b6480;
+  --color-slate-600: #453f5a;
+  --color-slate-700: #2d2840;
+  --color-slate-800: #1e1a2e;
+  --color-slate-900: #141120;
+  --color-slate-950: #0e0c1a;
+
+  --color-cyan-200: #a5f3fc;
+  --color-cyan-300: #67e8f9;
+  --color-cyan-400: #22D3EE;
+  --color-cyan-500: #06b6d4;
+  --color-cyan-600: #0891b2;
+
+  --color-indigo-200: #ddd6fe;
+  --color-indigo-300: #c4b5fd;
+  --color-indigo-400: #A78BFA;
+  --color-indigo-500: #818CF8;
+  --color-indigo-600: #6366f1;
+
+  /* Restore vivid violet/emerald in dark (light deepens them in :root; without these the cascade
+     would carry the dark-on-dark light value into dark mode). These are Tailwind's defaults. */
+  --color-violet-300: #c4b5fd;
+  --color-violet-400: #a78bfa;
+  --color-violet-500: #8b5cf6;
+  --color-emerald-300: #6ee7b7;
+  --color-emerald-400: #34d399;
+
+  --goethe-0: #3B82F6;
+  --goethe-1: #34C759;
+  --goethe-2: #FFD60A;
+  --goethe-3: #FF8A3D;
+  --goethe-4: #FF375F;
+  --goethe-5: #A78BFA;
+  --color-redhat: #EE0000;
+
+  --grid-line: rgba(157, 150, 176, 0.08);
+  --sel-bg: rgba(34, 211, 238, 0.18);
+  --sel-fg: #a5f3fc;
+}
+
+/* Member / open-role accent used as TEXT or icon. Those colours are tuned to glow on
+   near-black, so on the light ground they fail contrast (lime #98D80A ≈ 1.6:1). In LIGHT
+   we darken the per-card --accent toward ink (45/55 mix → ≥5.5:1 AA for every member);
+   in DARK we use the vivid colour unchanged. Decorative bars/tints/borders keep the raw
+   colour inline. */
+.accent-text {
+  color: color-mix(in srgb, var(--accent) 45%, #11151c);
+}
+.dark .accent-text {
+  color: var(--accent);
+}
+
+/* ─── Team flip cards ──────────────────────────────────────────────────────── */
+
+/* Hover-lift on the outer wrapper (group). Applied here so both faces share
+   the same lift zone regardless of which face is visible. */
+.group:has(.flip-card-flipper) {
+  transition: transform 0.3s ease;
+}
+.group:has(.flip-card-flipper):hover {
+  transform: translateY(-4px);
+}
+
+/* Under reduced-motion: strip the 3D perspective + rotation; instead crossfade
+   the two faces with opacity/visibility. The back face must NOT be left mirrored
+   (its rotateY(180deg) only looks right as part of the 3D spin). */
+@media (prefers-reduced-motion: reduce) {
+  .group:has(.flip-card-flipper) {
+    perspective: none !important;
+  }
+  /* Disable the flipper's 3D rotation transition */
+  .flip-card-flipper {
+    transform: none !important;
+    transition: none !important;
+  }
+  /* Front: visible by default, hidden when aria-hidden */
+  .flip-card-front {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
+  }
+  .flip-card-front[aria-hidden="true"] {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  /* Back: pre-rotation is meaningless without 3D — reset it; crossfade instead.
+     The two faces are grid-stacked in the same 1/1 cell, so the container already
+     sizes to the taller face. No position:absolute needed (that would collapse height). */
+  .flip-card-back {
+    transform: none !important;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
+  }
+  .flip-card-back:not([aria-hidden="true"]) {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--sel-bg);
+  color: var(--sel-fg);
+}
+
+/* Blueprint honeycomb — atmosphere behind the hero. Pointy-top hexagons echo the
+   Apuna mark's hexagon field. Colour is themed (--grid-line flips per mode), so it
+   lives in background-color and the hex outline is carved out with an SVG mask —
+   a colour baked into the SVG couldn't follow the theme. Seamless 28×49 tile. */
+.bg-grid {
+  background-color: var(--grid-line);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cpath fill='black' d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cpath fill='black' d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/svg%3E");
+  -webkit-mask-size: 44px 77px;
+  mask-size: 44px 77px;
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+}
+
+/* Staggered page-load reveal (paired with inline animation-delay) */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.21, 0.6, 0.35, 1) both;
+}
+
+/* Transform-only reveal for the LCP headline: paints fully opaque on the first frame so
+   Chrome records LCP immediately instead of deferring it until the fade completes. */
+@keyframes rise-up {
+  from {
+    transform: translateY(18px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.animate-rise-up {
+  animation: rise-up 0.7s cubic-bezier(0.21, 0.6, 0.35, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-rise-up {
+    animation: none;
+  }
+}
+
+/* ---- Forum prose styles ---- */
+/* Applied to .prose-forum divs that contain renderMarkdown() output.
+   Scoped tightly so they don't bleed into the main marketing site. */
+.prose-forum p {
+  margin-bottom: 0.75em;
+}
+.prose-forum p:last-child {
+  margin-bottom: 0;
+}
+.prose-forum pre {
+  background: var(--color-muted);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  overflow-x: auto;
+  margin-bottom: 0.75em;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+.prose-forum code {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.85em;
+  background: var(--color-muted);
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+  padding: 0.1em 0.35em;
+}
+.prose-forum pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+}
+.prose-forum strong {
+  font-weight: 700;
+  color: var(--color-surface-foreground);
+}
+.prose-forum em {
+  font-style: italic;
+}
+.prose-forum a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose-forum a:hover {
+  opacity: 0.8;
+}
+.prose-forum ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin-bottom: 0.75em;
+}
+.prose-forum li {
+  margin-bottom: 0.25em;
+}

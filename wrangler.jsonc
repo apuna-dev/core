@@ -1,0 +1,34 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"main": ".open-next/worker.js",
+	"name": "apuna-core",
+	"compatibility_date": "2026-06-12",
+	"compatibility_flags": [
+		"nodejs_compat",
+		"global_fetch_strictly_public"
+	],
+	"assets": {
+		"directory": ".open-next/assets",
+		"binding": "ASSETS"
+	},
+	"observability": {
+		"enabled": true,
+		"head_sampling_rate": 1,
+		"logs": {
+			"enabled": true,
+			"invocation_logs": true,
+			"head_sampling_rate": 1
+		}
+	}
+	// Optional rate-limit store for the bus (src/lib/core-bus.ts). When this KV
+	// namespace is bound as CORE_RL the per-IP limiter persists across isolates;
+	// without it the limiter falls back to an in-isolate counter. To enable:
+	//   npx wrangler kv namespace create CORE_RL
+	// then uncomment the block below and paste the returned id.
+	// "kv_namespaces": [
+	// 	{
+	// 		"binding": "CORE_RL",
+	// 		"id": "<your-kv-namespace-id>"
+	// 	}
+	// ]
+}

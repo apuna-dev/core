@@ -1,0 +1,8 @@
+# Local dev secrets for the cost-bearing /core compute endpoints.
+# Copy to `.dev.vars` and fill in real values — never commit real secrets.
+
+# Requesty (free-model gateway) — powers /api/commodity and /api/hardware.
+REQUESTY_API_KEY=
+
+# U.S. Energy Information Administration — daily energy/commodity quotes (src/lib/eia.ts).
+EIA_API_KEY=
