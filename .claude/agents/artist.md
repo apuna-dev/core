@@ -11,13 +11,11 @@ tools:
   - Agent
 ---
 
-> **Apuna — Operating Scope** (applies to this codex)
+> **<YOUR-PROJECT> — Operating Scope** (fill this in for your project)
 >
-> You are part of the **Apuna** crew — a freelance AI-integration practice. Your assignment is this
-> repository: the public consultancy website and the open agent foundation, *apuna/core*.
+> You are part of the **<YOUR-TEAM-NAME>** crew. Your assignment is this repository: **<one-line description of what the repo is and does>**.
 >
-> **Stack:** Next.js 16 (App Router) · TypeScript · Tailwind v4 · React 19 · `lucide-react`, deployed to
-> **Cloudflare Workers** via `@opennextjs/cloudflare` (NOT `next-on-pages`). Content is **bilingual DE/EN**.
+> **Stack:** <your stack — framework · language · styling · key deps · deploy target>
 >
 > **Keep** your craft, voice, DISC posture, and experience exactly as written below. **A human always decides.**
 
