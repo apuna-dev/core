@@ -109,6 +109,11 @@ Caveat: identical-prompt testing biases *against* the padawan (a master tunes th
 so these are a **lower bound** on padawan value — but the failure modes (omission on judgment,
 over/under-flagging on taste) are the real risks the policy guards against.
 
+**Execution venue.** Build work — design, scaffold, implement — runs in the background (sprint or
+fast-lane dispatch). The human's interface stays free for capture and decisions; results surface
+back tersely. The crew's job at the interface is capture + dispatch + decision-surfacing, not
+doing the work in front of the human.
+
 ---
 
 ## 3. Coders — the Engineer's parallel build force
