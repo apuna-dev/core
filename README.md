@@ -1,111 +1,136 @@
 # apuna/core
 
-**A free OpenAPI bus + an open agent crew for [Claude Code](https://claude.com/claude-code).** One
-self-hostable Cloudflare Worker that serves key-less APIs behind a single OpenAPI 3.1 spec — and the
-small AI crew that builds and operates it, droppable into your own project. A **human always decides**.
+An open 6-agent AI crew pattern. Fork it. Cast your own personas in the six roles. Run.
 
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
-[![Built for Claude Code](https://img.shields.io/badge/built%20for-Claude%20Code-d97757)](https://claude.com/claude-code)
-[![AI disclosed, never disguised](https://img.shields.io/badge/AI-disclosed%2C%20never%20disguised-444)](docs/CONSTITUTION.md)
-
-> *As little as possible, as much as needed.* The AI augments the team; a **human always decides**.
-
-This repo is **two things at once**:
-
-1. **The OpenAPI bus** — a runnable, self-hostable Worker exposing free, key-less endpoints (weather,
-   stats, transparency, plant care, commodity & hardware intelligence) through one self-describing
-   OpenAPI 3.1 surface. Live at [`apuna.dev/core`](https://apuna.dev/core).
-2. **The agent crew** — the generic core-5 (Leader · Artist · Designer · Scientist · Engineer) that
-   designs, builds, reviews, and operates it. Lift it into your own Claude Code project.
+The pattern is the give-away. The personas are yours to choose.
 
 ---
 
-## The OpenAPI bus
+## What this is
 
-A unified OpenAPI 3.1 surface over free, key-less endpoints. One envelope for everything:
-`{ ok, service, data | error, meta }`. The gateway calls each route handler **in-process** (no
-self-subrequest), so the spec can't drift from the real endpoints.
+A set of six agent codices for Claude Code — one per role in a small, self-organising AI crew. Drop them into any project. The crew has clear roles, a strict dispatch discipline, and one rule above all others: **a human always decides.**
 
-| Service | Method | Tier | Upstream |
-|---|---|---|---|
-| `weather` | GET `?lat&lon` | data · 60/min | Open-Meteo |
-| `stats` | GET | data · 60/min | internal |
-| `bots-blocked` | GET | data · 60/min | internal |
-| `transparency` | GET | data · 60/min | internal |
-| `plants` | GET | data · 60/min | internal (read-only) |
-| `commodity` | POST `{url}` | compute · 10/min | internal (Requesty) |
-| `hardware` | POST `{component,docUrl?}` | compute · 10/min | internal (Requesty) |
+The six archetypes cover every concern a software team faces: what to build (CEO), in what sequence (Leader), with what words (Artist), in what form (Designer), measured how (Scientist), and running on what (Engineer). They are not a framework. They are a pattern — small enough to hold in your head, load-bearing enough to ship production software.
 
-- **Catalog:** `/core` · **Spec:** `/core/openapi.json` (generated from the registry) · **Endpoints:** `/core/v1/<service>`
-- Public read, open CORS, per-IP rate limiting (`X-RateLimit-*` headers). `data` endpoints 60/min, cost-bearing `compute` endpoints 10/min.
-- Full reference + how to add a service: [`docs/core-bus.md`](docs/core-bus.md).
+---
 
-### Run it
+## The 6 agents
+
+| Role | Archetype | DISC | What they own | When to invoke |
+|------|-----------|------|---------------|----------------|
+| **CEO** | Albert Einstein | Low D / High I/C | Portfolio priorities — which problems, in what order | Backlog feels full; two workstreams compete; an assumption has been running the roadmap unchallenged |
+| **Leader** | Steve Jobs | High D | Dispatch — sole agent that invokes specialists; backlog; sequencing | A priority needs decomposing into executable tasks; work spans multiple specialists |
+| **Artist** | David Ogilvy | High I | All copy and persona voice | Writing or refining any agent persona, website copy, narrative, or microcopy |
+| **Designer** | Dieter Rams | High S | Visual and component layer; design system | Building or updating any visual element, layout, or accessibility concern |
+| **Scientist** | Richard Feynman | High C | Evaluation rubrics; LLM prompts; model tier assignment | Improving feedback quality, designing scoring rubrics, or challenging a shipped claim |
+| **Engineer** | Linus Torvalds | High C/D | Backend, infrastructure, build, deploy; all Bash | Any server-side code, infrastructure change, or shell command |
+
+---
+
+## The hierarchy
+
+```
+CEO
+ └─ Leader           <- sole dispatcher
+      ├─ Artist
+      ├─ Designer
+      ├─ Scientist
+      └─ Engineer
+```
+
+The CEO sets the agenda. The Leader is the sole dispatcher — the only agent that invokes another specialist. The Engineer is the only agent that touches code and Bash. The CEO, Artist, Designer, and Scientist do not invoke each other.
+
+---
+
+## Core principles
+
+These are load-bearing. Skip one and the crew stops working.
+
+**1. A human always decides.**
+Deploy, send, delete, public changes, credentials, irreversible actions — none of these happen without explicit human sign-off. No agent self-greenlight. The crew reduces the surface area of decisions that need the human's attention; it does not eliminate human authority.
+
+**2. Only the Leader dispatches specialists.**
+The CEO prioritises; the Leader decides which specialist owns which piece. No other agent in the crew invokes another specialist. This boundary is structural: it makes dispatch auditable and prevents runaway agent chains.
+
+**3. Only the Engineer touches Bash and the codebase.**
+The Artist, Designer, and Scientist produce specifications, copy, and rubrics. They hand them to the Engineer to implement. The Engineer runs every shell command. Nothing executes without passing through Engineering.
+
+**4. Capture before executing.**
+Every idea, bug, or feature request is written to the backlog before any agent begins work on it. This is not a workflow preference — it is the structural interface between the human and the crew.
+
+**5. Atomic PRs.**
+Every bug fix and every feature request ships as its own atomic PR — one focused, self-contained, independently reviewable and revertable change. No batching unrelated fixes into one commit.
+
+---
+
+## Getting started
+
+**Prerequisites:** Claude Code installed. The crew is designed around Claude's agent codex format and the `/agent` slash-command pattern.
+
+**Step 1 — Copy the agents into your project**
 
 ```bash
-npm install
-npm run dev        # local dev
-npm run deploy     # opennextjs-cloudflare build && wrangler deploy
+cp -r .claude/agents/ your-project/.claude/agents/
 ```
 
-The `commodity` and `hardware` services need a free [Requesty](https://requesty.ai) key (and optionally
-an [EIA](https://www.eia.gov/opendata/) key) — copy `.dev.vars.example` to `.dev.vars` and fill them.
-Everything else runs key-less. The rate limiter uses an optional `CORE_RL` KV namespace (see
-`wrangler.jsonc`); without it, it falls back to an in-isolate counter.
+**Step 2 — Customise the scope block**
+
+Each codex opens with an Operating Scope block:
+
+```
+> **Operating Scope**
+>
+> You are part of a 6-agent AI crew. Your role is described below. Adapt the stack, domain, and product focus to your specific deployment. **A human always decides.**
+```
+
+Replace the generic text with your project's specifics:
+
+```
+> **<YOUR-PROJECT> — Operating Scope**
+>
+> You are part of the **<YOUR-TEAM-NAME>** crew. Your assignment is this repository: **<one-line description>**.
+>
+> **Stack:** <your framework · language · styling · deploy target>
+>
+> **Keep** your craft, voice, DISC posture, and experience exactly as written below. **A human always decides.**
+```
+
+**Step 3 — Invoke agents via Claude Code**
+
+Invoke agents using the slash-command names that match the codex `name:` field. By default these ship as: `/ceo`, `/leader`, `/artist`, `/designer`, `/scientist`, `/engineer`.
+
+**Step 4 — Adapt the personas (optional)**
+
+The archetypes ship with historical personas (Einstein, Jobs, Ogilvy, Rams, Feynman, Torvalds). You can re-cast any role with a different persona — see [docs/EXTENDING.md](docs/EXTENDING.md) for how.
 
 ---
 
-## The agent crew
+## Extending the crew
 
-The crew lives in [`.claude/agents/`](.claude/agents/) (one codex per role) and is invoked through the
-slash-command skills in [`.claude/skills/`](.claude/skills/). The **core 5**:
+The six archetypes are the load-bearing structure. Anything beyond them — padawans, domain specialists, advisors — is built on top. See [docs/EXTENDING.md](docs/EXTENDING.md) for how to add roles without breaking the hierarchy.
 
-- **Leader** — product calls, breaking work down, dispatching the crew
-- **Artist** — copy, brand voice, microcopy
-- **Designer** — UI, layout, accessibility ("less, but better")
-- **Scientist** — evaluation, scoring rubrics, measurement
-- **Engineer** — build, infrastructure, deploy (+ **Coder**, its parallel build force)
+---
 
-The rules they're held to live in [`CLAUDE.md`](CLAUDE.md); the method in
-[`docs/AGENT-METHODOLOGY.md`](docs/AGENT-METHODOLOGY.md); the principles in
-[`docs/CONSTITUTION.md`](docs/CONSTITUTION.md).
+## The HITL principle
 
-### Lift the crew into your project
+HITL — human in the loop — is not a feature. It is the architecture.
 
-No build step, no dependency — the crew is just Markdown codices and slash-command skills.
+The crew is designed to handle everything it can decide with confidence, and to surface everything it can't as a structured decision packet: context, recommendation, stakes, approve or reject. The human's job is to answer the packet, not to supervise every step.
 
-1. **Copy** [`.claude/agents/`](.claude/agents/) and [`.claude/skills/`](.claude/skills/) into your project.
-2. **Add** a `CLAUDE.md` with the rules ([this repo's is a starter](CLAUDE.md)).
-3. **Summon** a role: `/torvalds` (Engineer), `/jobs` (Leader), `/rams` (Designer), `/ogilvy` (Artist), `/feynman` (Scientist).
+The signal of a healthy crew: the human gets fewer and fewer packets over time — not because the crew is hiding things, but because its confidence thresholds are well-calibrated and the cases it surfaces are genuinely worth the human's attention.
 
-### Cast your own crew
+What always requires human sign-off, regardless of confidence:
+- Deploying to production
+- Sending communications on behalf of the team or product
+- Deleting data, branches, or resources
+- Public-facing changes to live content
+- Any action involving credentials or secrets
+- Decisions that change the product's values or positioning
 
-The crew is defined by its **roles, not by who plays them.** This repo ships one example cast —
-historical figures (Steve Jobs, David Ogilvy, Dieter Rams, Richard Feynman, Linus Torvalds), **openly
-disclosed as AI, never presented as the real people**. That cast is just a default; recast any role
-with your own figure.
-
-#### Re-cast a role
-
-Paste this to your LLM:
-
-```
-I'm recasting the "<ROLE>" in an AI agent crew. Its remit:
-<paste the role's remit paragraph from .claude/agents/<role>.md>
-
-Suggest 3 real or fictional figures whose *documented way of working* fits
-this remit — chosen by method, not fame. For your top pick, rewrite the codex
-in the same structure (identity · background · how they work · what they refuse
-to do · boundaries), in their voice.
-
-Hard rule: the agent is openly an AI modeled on that figure — never presented
-as the real person, never claiming to be them.
-```
-
-Then save it over `.claude/agents/<role>.md` and rename the matching skill in `.claude/skills/`.
+See [docs/HITL-GUIDE.md](docs/HITL-GUIDE.md) for the full guide.
 
 ---
 
 ## License
 
-Apache-2.0 — see [`LICENSE`](LICENSE). No proprietary cage: you can read, audit, and keep every line.
+Apache 2.0. Use it. Adapt it. Tell us what you built with it.
