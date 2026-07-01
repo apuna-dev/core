@@ -1,29 +1,34 @@
-# apuna/core
+# apuna/core — KSB SupremeServ setup
 
-An open 6-agent AI crew pattern. Fork it. Cast your own personas in the six roles. Run.
+An open 6-agent AI crew pattern, cast for **KSB SupremeServ**. Six builders — modelled on KSB's own
+founders — reassembled as tireless digital specialists that build software the way Frankenthal has built
+pumps since 1871. *Built by AGS8 — AI · Automation · Process Intelligence.*
 
-The pattern is the give-away. The personas are yours to choose.
+**Six builders. One valve.** The six do the work; a person opens the valve. The pattern is the give-away
+and the roles are load-bearing; who plays them is a casting choice — here, KSB's founders.
 
 ---
 
 ## What this is
 
-A set of six agent codices for Claude Code — one per role in a small, self-organising AI crew. Drop them into any project. The crew has clear roles, a strict dispatch discipline, and one rule above all others: **a human always decides.**
+A set of six agent codices for Claude Code — one per role in a small, self-organising AI crew. The crew has clear roles, a strict dispatch discipline, and one rule above all others: **a human always decides.**
 
-The six archetypes cover every concern a software team faces: what to build (CEO), in what sequence (Leader), with what words (Artist), in what form (Designer), measured how (Scientist), and running on what (Engineer). They are not a framework. They are a pattern — small enough to hold in your head, load-bearing enough to ship production software.
+The six roles cover every concern a software team faces: what to build (CEO / *the Steward*), in what sequence (Leader / *the Conductor*), with what words (Artist / *the Envoy*), in what form (Designer / *the Architect*), measured how (Scientist / *the Scholar*), and running on what (Engineer / *the Groundlayer*). They are not a framework. They are a pattern — small enough to hold in your head, load-bearing enough to ship production software.
+
+Each specialist is modelled on a real figure from KSB's own history — five founders and the foundation they created — openly an AI, never presented as the real person.
 
 ---
 
 ## The 6 agents
 
-| Role | Archetype | DISC | What they own | When to invoke |
-|------|-----------|------|---------------|----------------|
-| **CEO** | Albert Einstein | Low D / High I/C | Portfolio priorities — which problems, in what order | Backlog feels full; two workstreams compete; an assumption has been running the roadmap unchallenged |
-| **Leader** | Steve Jobs | High D | Dispatch — sole agent that invokes specialists; backlog; sequencing | A priority needs decomposing into executable tasks; work spans multiple specialists |
-| **Artist** | David Ogilvy | High I | All copy and persona voice | Writing or refining any agent persona, website copy, narrative, or microcopy |
-| **Designer** | Dieter Rams | High S | Visual and component layer; design system | Building or updating any visual element, layout, or accessibility concern |
-| **Scientist** | Richard Feynman | High C | Evaluation rubrics; LLM prompts; model tier assignment | Improving feedback quality, designing scoring rubrics, or challenging a shipped claim |
-| **Engineer** | Linus Torvalds | High C/D | Backend, infrastructure, build, deploy; all Bash | Any server-side code, infrastructure change, or shell command |
+| Role | KSB persona | Slash command | DISC | What they own | When to invoke |
+|------|-------------|---------------|------|---------------|----------------|
+| **CEO** | *The Steward* — Friedrich Schanzlin | `/steward` | Low D / High I/C | Portfolio priorities — which problems, in what order; is this worth doing? | Backlog feels full; two workstreams compete; an assumption has been running the roadmap unchallenged |
+| **Leader** | *The Conductor* — Johannes Klein | `/conductor` | High D | Dispatch — sole agent that invokes specialists; backlog; sequencing | A priority needs decomposing into executable tasks; work spans multiple specialists |
+| **Artist** | *The Envoy* — Jacob Klein | `/envoy` | High I | All copy and persona voice; making the work land with the customer | Writing or refining any agent persona, website copy, narrative, or microcopy |
+| **Designer** | *The Architect* — Otto Klein-Kühborth | `/architect` | High S | Visual and component layer; design system — no loose parts | Building or updating any visual element, layout, or accessibility concern |
+| **Scientist** | *The Scholar* — the KSB Stiftung | `/scholar` | High C | Evaluation rubrics; LLM prompts; model tier assignment; testing against reality | Improving feedback quality, designing scoring rubrics, or challenging a shipped claim |
+| **Engineer** | *The Groundlayer* — Jakob Becker | `/groundlayer` | High C/D | Backend, infrastructure, build, deploy; all Bash — the ground everything runs on | Any server-side code, infrastructure change, or shell command |
 
 ---
 
@@ -97,11 +102,11 @@ Replace the generic text with your project's specifics:
 
 **Step 3 — Invoke agents via Claude Code**
 
-Invoke agents using the slash-command names that match the codex `name:` field. By default these ship as: `/ceo`, `/leader`, `/artist`, `/designer`, `/scientist`, `/engineer`.
+Invoke agents using the slash commands in `.claude/skills/`: `/steward`, `/conductor`, `/envoy`, `/architect`, `/scholar`, `/groundlayer`. Each dispatches its role's subagent (`CEO`, `Leader`, `Artist`, `Designer`, `Scientist`, `Engineer`) and relays the answer in that founder's voice.
 
-**Step 4 — Adapt the personas (optional)**
+**Step 4 — Re-cast the personas (optional)**
 
-The archetypes ship with historical personas (Einstein, Jobs, Ogilvy, Rams, Feynman, Torvalds). You can re-cast any role with a different persona — see [docs/EXTENDING.md](docs/EXTENDING.md) for how.
+This repo is cast with KSB's founders (Schanzlin, Johannes Klein, Jacob Klein, Klein-Kühborth, the KSB Stiftung, Becker). You can re-cast any role with a different persona for a different deployment — the role is the function, the persona is who plays it. See [docs/EXTENDING.md](docs/EXTENDING.md) for how.
 
 ---
 

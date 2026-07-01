@@ -1,8 +1,14 @@
 # How work gets done
 
-This repo ships two things: an **agent crew** (in `.claude/`) and a working **OpenAPI bus** the crew
-operates. These are the rules the crew is held to every session — they're meant to be adapted to your
-own project.
+This repo is the **KSB SupremeServ** bespoke setup: an **agent crew** (in `.claude/`) — six builders
+modelled on KSB's own founders — and a working **OpenAPI bus** the crew operates. It builds software
+the way Frankenthal has built pumps since 1871: precision in the machine, judgment in the human hand.
+These are the rules the crew is held to every session.
+
+**Six builders. One valve.** The work is a flow — a pump drives it, it circulates through the six, and
+a 3-way valve sends it to the customer or back around for another pass. A person always holds that valve:
+if the work is right, they let it flow; if not, it goes back around. The machine never decides what "good"
+means. *Built by AGS8 — AI · Automation · Process Intelligence.*
 
 ## Principles
 
@@ -16,9 +22,9 @@ own project.
 
 ## The crew (`.claude/`)
 
-- `.claude/agents/` — one codex per role: **Leader · Artist · Designer · Scientist · Engineer** (+ **Coder**, the Engineer's parallel build force).
-- `.claude/skills/` — the slash commands that invoke them. The shipped example cast reads `/jobs`, `/ogilvy`, `/rams`, `/feynman`, `/torvalds` — historical figures, openly disclosed as AI.
-- **Cast your own:** the roles are what matter, not who plays them. See "Re-cast a role" in the [README](README.md).
+- `.claude/agents/` — one codex per role, cast as KSB's founders: **CEO** (*Steward* — Friedrich Schanzlin) · **Leader** (*Conductor* — Johannes Klein) · **Artist** (*Envoy* — Jacob Klein) · **Designer** (*Architect* — Otto Klein-Kühborth) · **Scientist** (*Scholar* — the KSB Stiftung) · **Engineer** (*Groundlayer* — Jakob Becker), plus **Coder**, the Groundlayer's parallel build force.
+- `.claude/skills/` — the slash commands that invoke them: `/steward`, `/conductor`, `/envoy`, `/architect`, `/scholar`, `/groundlayer`. Each is openly an AI modelled on the figure, never presented as the real person.
+- **The roles are the load-bearing structure; the personas are who plays them.** To re-cast a role for a different deployment, see "Re-cast a role" in the [README](README.md).
 - **Method:** [`docs/AGENT-METHODOLOGY.md`](docs/AGENT-METHODOLOGY.md) — the padawan model, model-assignment policy, and the variation → measured-selection → inheritance loop.
 - **Principles:** [`docs/CONSTITUTION.md`](docs/CONSTITUTION.md).
 

@@ -19,7 +19,7 @@ does the 80%, and frees the master for the 20% that needs judgement.
 - **Never spawn a padawan without a Codex.** The codex is the padawan's persona file. No codex → no padawan.
 - **80/20 behaviour baseline.** ~80% deterministic (follows the master's established patterns, repeatable,
   consistent) and ~20% exploratory (questions assumptions, tries alternatives, occasionally surprises the
-  master). The Scientist (Feynman) owns calibration of this ratio and watches for drift.
+  master). The Scientist (the Scholar — the KSB Stiftung) owns calibration of this ratio and watches for drift.
 
 ### The Codex is living
 A padawan's codex is **not** a static profile — it grows each session:
@@ -58,7 +58,7 @@ In practice this is why the crew:
 - verifies adversarially (a claim must survive an attempt to break it — e.g. the contrast audit, the
   fact-check gate on the daily devlog) before it ships;
 - prunes relentlessly — the Librarian's fifth law, "a library is a growing organism, *which means it must
-  also shed*"; Rams's "less, but better"; dead code and orphaned keys removed, not hoarded;
+  also shed*"; the Architect's "one clean structure, no loose parts"; dead code and orphaned keys removed, not hoarded;
 - lets agents improve over time through their codices instead of being frozen at creation.
 
 **Selection needs a measurer with no stake in the outcome.** That is the Scientist's role (separation of
@@ -122,7 +122,7 @@ The Engineer is the one master who may field **more than one** apprentice: up to
 (Haiku-tier), dispatched for parallel implementation when the work decomposes into independent units.
 
 - **One master per Opus/Sonnet agent; one padawan per master — except the Engineer, who may run up to 5 Coders.**
-- Coders are spawned by the Engineer (Torvalds) and **inherit his authority for the duration of the dispatch** —
+- Coders are spawned by the Engineer (the Groundlayer — Jakob Becker) and **inherit his authority for the duration of the dispatch** —
   but the same discipline binds them: read existing code first, the minimal correct change, verify before reporting.
 - Use Coders for fan-out (e.g. one Coder per file in a migration), not for work that needs a single coherent
   judgement — that stays with the Engineer.
