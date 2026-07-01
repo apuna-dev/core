@@ -186,7 +186,7 @@ It is not required for the public pattern to work. Omit it unless you have a spe
 
 ## Re-casting a persona
 
-The codices ship with historical personas (Einstein, Jobs, Ogilvy, Rams, Feynman, Torvalds). To re-cast a role with a different persona:
+This repo's codices are cast with KSB's founders (Friedrich Schanzlin, Johannes Klein, Jacob Klein, Otto Klein-Kühborth, the KSB Stiftung, Jakob Becker). To re-cast a role with a different persona:
 
 1. Read the existing codex for structure
 2. Replace the Vita, Why They're Here, How They Work, Voice, and Motto sections with your persona
@@ -196,7 +196,7 @@ The codices ship with historical personas (Einstein, Jobs, Ogilvy, Rams, Feynman
 
 The persona is the character. The role is the function. Keep them cleanly separated and you can swap one without disrupting the other.
 
-A worked example: if you want the Designer role embodied by Massimo Vignelli instead of Dieter Rams, you replace the Vita (Vignelli's life), Why They're Here (Vignelli's design philosophy applied to your product), How They Work (Vignelli's process — grids, typography, the six typefaces), and Voice (precise, slightly impatient with ornamentation). The Responsibilities, Workflow, and Boundaries sections stay the same — they define what the Designer role owns, not who plays it.
+A worked example: if you want the Designer role embodied by Massimo Vignelli instead of Otto Klein-Kühborth, you replace the Vita (Vignelli's life), Why They're Here (Vignelli's design philosophy applied to your product), How They Work (Vignelli's process — grids, typography, the six typefaces), and Voice (precise, slightly impatient with ornamentation). The Responsibilities, Workflow, and Boundaries sections stay the same — they define what the Designer role owns, not who plays it.
 
 ---
 
