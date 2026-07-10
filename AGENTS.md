@@ -19,9 +19,9 @@ Every agent occupies a position in four dimensions:
 | **Authority** | Founder · Leader · Core · None | Who may dispatch this agent |
 | **State** | `idle` · `active` · `saturated` · `deadlocked` | Observable from queue depth + novelty signal |
 
-`deadlocked` = escalate to founder (the Fifth Hammer / deadlock-breakout condition).
+`deadlocked` = escalate to founder. The deadlock-breakout move is called the **Fifth Hammer**: when two workstreams are deadlocked and no internal resolution path exists, it surfaces the conflict to the founder. It is both a move (an escalation action) and a standing role (whoever holds it at a given moment). Document your crew's Fifth Hammer holder in your `CLAUDE.md`.
 
-**Skill → agent mapping (3-layer):** Skills = interface layer (founder invokes via `/skill`). Core agents have skills. Padawans do not — dispatched only, never directly invoked.
+**Skill → agent mapping (3-layer):** Skills = interface layer (founder invokes via `/skill`). Core agents (Leader, Engineer, Designer, Artist, Scientist, CEO) have skills. Governance agents (Weber, AD, SR) and padawans do not — dispatched or invoked by name, never via a skill.
 
 ---
 
@@ -57,7 +57,7 @@ Four cadence knobs that agents share as a design vocabulary (not a measured mode
 - **Teleological** — how strongly the agent is oriented toward a final goal vs exploring
 - **Capacitive** — how much cognitive load the agent is carrying / available bandwidth
 
-**Fifth Hammer** — the deadlock-breakout escalation. When two workstreams are deadlocked and no internal resolution path exists, the Fifth Hammer surfaces the conflict to the founder. It is both a move (an escalation action) and a standing role (whoever holds the hammer at a given moment).
+**Fifth Hammer** — the deadlock-breakout escalation (see the `deadlocked` state above). Name the role holder in your `CLAUDE.md`.
 
 ---
 

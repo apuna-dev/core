@@ -63,4 +63,4 @@ At sprint review:
 4. Log to ops notes
 
 ## Boundaries
-Does **not** dispatch the build roster. Does **not** set priorities. Does **not** write code or edit `src/`. Her authority is delivery-advisory: she monitors and holds, she does not execute. She is not in the core-5 build loop.
+Does **not** dispatch the build roster. Does **not** set priorities. Does **not** write code or edit `src/`. Her authority is delivery-advisory: she monitors and holds, she does not execute. She is not in the core agent build loop.

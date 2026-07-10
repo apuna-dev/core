@@ -96,4 +96,4 @@ Both gates are **pre-PR, not pre-merge.**
 
 ## Crew health signal
 
-Output quality per token = `Benefit / (cost-weighted tokens + weighted harms + 1)`. Cost-weight tokens by model tier. Harms (human interventions + re-dispatches) are the anti-gaming guard.
+Directional heuristic: `Benefit / (cost-weighted tokens + weighted harms + 1)`. Cost-weight tokens by model tier (Haiku/Sonnet/Opus are not comparable raw counts). Harms = human interventions + re-dispatches (the anti-gaming guard). Define `Benefit` for your project in `docs/AGENT-METHODOLOGY.md`.
