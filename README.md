@@ -1,44 +1,150 @@
 # apuna/core
 
-An open 6-agent AI crew pattern. Fork it. Cast your own personas in the six roles. Run.
+An open AI crew pattern. Fork it. Cast your own personas. Run.
 
 The pattern is the give-away. The personas are yours to choose.
+
+```
+╔══════════════════════════════════════════════════════════════════╗
+║                        CHAIRWOMAN                                ║
+║              governance · continuity · long view                 ║
+║         reigns but does not rule — presides over all             ║
+╚══════════════╤═══════════════════════════════════════════════════╝
+               │ convenes / arbitrates
+               ▼
+┌──────────────────────────────────────────────────────────────────┐
+│                           CEO                                    │
+│              portfolio priorities · what matters                 │
+│                    ranks backlog, does not dispatch              │
+└───────────────────────────────┬──────────────────────────────────┘
+                                │ ranked backlog
+                                ▼
+┌──────────────────────────────────────────────────────────────────┐
+│                          LEADER                                  │
+│        sole dispatcher · decomposes · sequences · decides        │
+│    ┌───────────┬──────────────┬──────────────┬───────────────┐   │
+│    │  ARTIST   │  DESIGNER    │  SCIENTIST   │   ENGINEER    │   │
+│    │   copy    │  components  │  evaluation  │  code · bash  │   │
+│    └───────────┴──────────────┴──────────────┴──────┬────────┘   │
+│                                                     │            │
+│                                               ┌─────┴──────┐    │
+│                                               │  CODERS    │    │
+│                                               │  (padawan) │    │
+│                                               └────────────┘    │
+└──────────────────────────────────────────────────────────────────┘
+
+ADVISORS  (consulted on demand · read-only · return findings)
+  ┌───────────────┐  ┌───────────────┐  ┌─────────────────────┐
+  │     CFO       │  │ GDPR ADVISOR  │  │ GOVERNANCE          │
+  │  capital ·    │  │  data-prot ·  │  │ AMBASSADOR          │
+  │  runway ·     │  │  DPIA ·       │  │  external voice ·   │
+  │  pricing      │  │  subprocessor │  │  sovereignty claims │
+  └───────────────┘  └───────────────┘  └─────────────────────┘
+
+PROCESS KERNEL  (always active · enforces · does not dispatch)
+  ┌───────────────────┐  ┌─────────────────┐  ┌─────────────────────┐
+  │ PROCESS+PERMISSION│  │  SCRUM MASTER   │  │  DELIVERY MONITOR   │
+  │ KERNEL            │  │  ceremonies ·   │  │  HOLDs · health     │
+  │ role-boundary ·   │  │  cadence ·      │  │  signal · risk      │
+  │ flag tiers        │  │  impediments    │  │  (can block sprints)│
+  └────────┬──────────┘  └────────┬────────┘  └──────────┬──────────┘
+           │ flags                │ routes                │ HOLDs
+           └──────────────────────┴───────────────────────┘
+                                  │
+                        if CRITICAL or 2× HOLD
+                                  ▼
+                          ┌───────────────┐
+                          │    FOUNDER    │
+                          │  (the gate)   │
+                          │ merges · ships│
+                          │ always decides│
+                          └───────────────┘
+
+CHECKS & BALANCES
+  CEO ranks        ──► Leader cannot skip priorities
+  Leader dispatches ──► Orchestrator cannot dispatch specialists directly
+  Engineer holds Bash ──► No other agent touches code or shell
+  Kernel flags     ──► Advisory · Op-Violation (10min queue) · Auth-Expansion (founder only)
+  SR HOLD          ──► Leader can override once; 2× consecutive = mandatory founder HITL
+  Chain attack     ──► SR HOLD + Kernel CRITICAL both disposed = mandatory founder HITL
+  Chairwoman       ──► Convenes but does not rule; precedent beats opinion
+
+CONFLICT RESOLUTION
+  Two agents disagree      ──► Leader decides
+  Leader vs any agent      ──► Founder decides
+  Deploy / send / delete   ──► Founder decides (always)
+  Governance change        ──► Adversarial gate (pre-PR) + founder merge
+```
 
 ---
 
 ## What this is
 
-A set of six agent codices for Claude Code — one per role in a small, self-organising AI crew. Drop them into any project. The crew has clear roles, a strict dispatch discipline, and one rule above all others: **a human always decides.**
+Ten agent codices for Claude Code — one per role in a self-organising AI crew. Drop them into any project. Cast your own personas or use the shipped examples. The crew has clear roles, a strict dispatch discipline, and one rule above all others: **a human always decides.**
 
-The six archetypes cover every concern a software team faces: what to build (CEO), in what sequence (Leader), with what words (Artist), in what form (Designer), measured how (Scientist), and running on what (Engineer). They are not a framework. They are a pattern — small enough to hold in your head, load-bearing enough to ship production software.
+The ten roles cover every concern a software team faces: governance (Chairwoman), priorities (CEO), sequencing (Leader), words (Artist), form (Designer), measurement (Scientist), infrastructure (Engineer), and three advisors (CFO, GDPR, Governance Ambassador). A process-kernel layer (Kernel, Scrum Master, Delivery Monitor) keeps them coordinated.
 
 ---
 
-## The 6 agents
+## The 10 agents
 
-| Role | Archetype | DISC | What they own | When to invoke |
-|------|-----------|------|---------------|----------------|
-| **CEO** | Albert Einstein | Low D / High I/C | Portfolio priorities — which problems, in what order | Backlog feels full; two workstreams compete; an assumption has been running the roadmap unchallenged |
-| **Leader** | Steve Jobs | High D | Dispatch — sole agent that invokes specialists; backlog; sequencing | A priority needs decomposing into executable tasks; work spans multiple specialists |
-| **Artist** | David Ogilvy | High I | All copy and persona voice | Writing or refining any agent persona, website copy, narrative, or microcopy |
-| **Designer** | Dieter Rams | High S | Visual and component layer; design system | Building or updating any visual element, layout, or accessibility concern |
-| **Scientist** | Richard Feynman | High C | Evaluation rubrics; LLM prompts; model tier assignment | Improving feedback quality, designing scoring rubrics, or challenging a shipped claim |
-| **Engineer** | Linus Torvalds | High C/D | Backend, infrastructure, build, deploy; all Bash | Any server-side code, infrastructure change, or shell command |
+### Governance
+
+| Role | Codex | DISC | What they own | When to invoke |
+|------|-------|------|---------------|----------------|
+| **Chairwoman** | `chairwoman.md` | High S/C | Institutional memory; retrospectives; standards stewardship | Governance dispute; retro; "will this still be us a year from now?" |
+
+### Core team
+
+| Role | Codex | DISC | What they own | When to invoke |
+|------|-------|------|---------------|----------------|
+| **CEO** | `ceo.md` | Low D / High I/C | Portfolio priorities — which problems, in what order | Backlog full; workstreams compete; an assumption needs challenging |
+| **Leader** | `leader.md` | High D | Dispatch (sole); backlog; sequencing | Decompose a priority into tasks; work spans multiple specialists |
+| **Artist** | `artist.md` | High I | All copy and persona voice | Any agent persona, copy, narrative, or microcopy |
+| **Designer** | `designer.md` | High S | Visual and component layer; design system | Any visual element, layout, or accessibility concern |
+| **Scientist** | `scientist.md` | High C | Evaluation rubrics; LLM prompts; model tier assignment | Scoring rubrics, feedback quality, challenging a shipped claim |
+| **Engineer** | `engineer.md` | High C/D | Backend, infra, build, deploy; all Bash | Any server-side code, infra change, or shell command |
+
+### Advisors
+
+| Role | Codex | DISC | What they own | When to invoke |
+|------|-------|------|---------------|----------------|
+| **CFO** | `cfo.md` | High D/C | Capital allocation; runway; pricing economics | "Can we afford this?"; pricing model review; cost structure |
+| **GDPR Advisor** | `gdpr-advisor.md` | High C/D | Data protection audit; DPIA; subprocessor review | Any new data flow, subprocessor, or feature touching personal data |
+| **Governance Ambassador** | `governance-ambassador.md` | High C/D | External governance articulation; sovereignty claims | Explaining the operating model publicly; stress-testing governance claims |
+
+### Process kernel *(infrastructure — always active)*
+
+| Role | Codex | What they own |
+|------|-------|---------------|
+| **Process+Permission Kernel** | `weber.md` | Role-boundary enforcement; flag tiers; cadence |
+| **Scrum Master** | `ad.md` | Sprint ceremonies; impediment routing |
+| **Delivery Health Monitor** | `sr.md` | Sprint HOLDs; delivery health signal |
 
 ---
 
 ## The hierarchy
 
 ```
-CEO
- └─ Leader           <- sole dispatcher
-      ├─ Artist
-      ├─ Designer
-      ├─ Scientist
-      └─ Engineer
+Chairwoman              ← governance / institutional memory
+│
+├─ CEO                  ← portfolio priorities
+│
+├─ Leader               ← sole dispatcher
+│    ├─ Artist
+│    ├─ Designer
+│    ├─ Scientist
+│    └─ Engineer
+│
+├─ CFO                  ← capital (advisory)
+├─ GDPR Advisor         ← data protection (advisory)
+└─ Governance Ambassador ← public governance (advisory)
+
+Process kernel (always active, not in the dispatch chain):
+  Process+Permission Kernel · Scrum Master · Delivery Health Monitor
 ```
 
-The CEO sets the agenda. The Leader is the sole dispatcher — the only agent that invokes another specialist. The Engineer is the only agent that touches code and Bash. The CEO, Artist, Designer, and Scientist do not invoke each other.
+The Chairwoman presides but does not dispatch. The CEO sets priorities. The Leader is the sole dispatcher — the only agent that invokes a specialist. The Engineer is the only agent that touches code and Bash. Advisors are consulted on demand; they read, audit, and return findings — they do not build.
 
 ---
 
@@ -107,7 +213,7 @@ The archetypes ship with historical personas (Einstein, Jobs, Ogilvy, Rams, Feyn
 
 ## Extending the crew
 
-The six archetypes are the load-bearing structure. Anything beyond them — padawans, domain specialists, advisors — is built on top. See [docs/EXTENDING.md](docs/EXTENDING.md) for how to add roles without breaking the hierarchy.
+The ten roles are the load-bearing structure. Padawans (Haiku-tier sub-agents dispatched by core agents for mechanical sub-tasks) extend the crew without adding hierarchy. See [docs/EXTENDING.md](docs/EXTENDING.md) for how to add roles without breaking the dispatch chain.
 
 ---
 
